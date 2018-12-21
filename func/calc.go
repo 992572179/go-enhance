@@ -1,16 +1,18 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
-	i, e := calculate(3, 5, "+")
-	if e != nil {
-		panic(e)
+	if i, err := calculate(3, 5, "-"); err != nil {
+		panic(err)
 	} else {
-		fmt.Println(i)
+		fmt.Println("result:", i)
 	}
 }
 
+//对两个数的计算操作
 func calculate(a, b int, operate string) (int, error) {
 	switch operate {
 	case "+":
@@ -24,5 +26,8 @@ func calculate(a, b int, operate string) (int, error) {
 	default:
 		return 0, fmt.Errorf("%s", "Operation not support!"+"\t"+operate)
 	}
+}
 
+func calcbyfunc(op func(int, int) int, a, b int) int {
+	return op(a, b)
 }
